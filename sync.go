@@ -13,8 +13,8 @@ import (
 	"runtime/debug"
 	"time"
 
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // EventHandler handles a single event from a sync response.

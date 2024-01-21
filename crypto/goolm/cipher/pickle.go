@@ -3,7 +3,7 @@ package cipher
 import (
 	"fmt"
 
-	"saleschat/go/mautrix/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
 )
 
 const (

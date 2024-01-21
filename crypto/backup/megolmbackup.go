@@ -1,8 +1,8 @@
 package backup
 
 import (
-	"saleschat/go/mautrix/crypto/signatures"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/signatures"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // MegolmAuthData is the auth_data when the key backup is created with

@@ -4,7 +4,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 
-	"saleschat/go/mautrix/crypto/pkcs7"
+	"github.com/Saleschat/mautrix-go/crypto/pkcs7"
 )
 
 // Encrypt encrypts the plaintext with the key and IV. The IV length must be

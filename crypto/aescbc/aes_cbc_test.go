@@ -6,7 +6,7 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"saleschat/go/mautrix/crypto/aescbc"
+	"github.com/Saleschat/mautrix-go/crypto/aescbc"
 )
 
 func TestAESCBC(t *testing.T) {

@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"time"
 
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var (

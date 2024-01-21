@@ -13,8 +13,8 @@ import (
 	"github.com/rs/zerolog"
 	"go.mau.fi/util/exerrors"
 
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // StateStore is an interface for storing basic room state information.

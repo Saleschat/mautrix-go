@@ -3,8 +3,8 @@ package olm
 import (
 	"fmt"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
 )
 
 // skippedMessageKey stores a skipped message key

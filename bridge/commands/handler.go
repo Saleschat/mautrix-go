@@ -7,9 +7,9 @@
 package commands
 
 import (
-	"saleschat/go/mautrix/bridge"
-	"saleschat/go/mautrix/bridge/bridgeconfig"
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go/bridge"
+	"github.com/Saleschat/mautrix-go/bridge/bridgeconfig"
+	"github.com/Saleschat/mautrix-go/event"
 )
 
 type MinimalHandler interface {

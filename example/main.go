@@ -21,10 +21,10 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/rs/zerolog"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/cryptohelper"
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/cryptohelper"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var homeserver = flag.String("homeserver", "", "Matrix homeserver")

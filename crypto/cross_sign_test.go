@@ -15,9 +15,9 @@ import (
 	"github.com/rs/zerolog"
 	"go.mau.fi/util/dbutil"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var noopLogger = zerolog.Nop()

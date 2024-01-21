@@ -7,7 +7,7 @@
 package event
 
 import (
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type MessageStatusReason string

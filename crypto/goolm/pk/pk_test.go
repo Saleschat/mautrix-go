@@ -5,10 +5,10 @@ import (
 	"encoding/base64"
 	"testing"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/crypto/goolm/pk"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/pk"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 func TestEncryptionDecryption(t *testing.T) {

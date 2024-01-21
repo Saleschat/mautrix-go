@@ -9,7 +9,7 @@ import (
 
 	"go.mau.fi/util/jsontime"
 
-	"saleschat/go/mautrix/appservice"
+	"github.com/Saleschat/mautrix-go/appservice"
 )
 
 const defaultReconnectBackoff = 2 * time.Second

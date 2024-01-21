@@ -10,10 +10,10 @@ import (
 	"errors"
 	"time"
 
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/event"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var (

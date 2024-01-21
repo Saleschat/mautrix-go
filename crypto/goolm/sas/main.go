@@ -4,8 +4,8 @@ package sas
 import (
 	"io"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
 )
 
 // SAS contains the key pair and secret for SAS.

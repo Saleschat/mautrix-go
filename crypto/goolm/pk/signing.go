@@ -3,9 +3,9 @@ package pk
 import (
 	"crypto/rand"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // Signing is used for signing a pk

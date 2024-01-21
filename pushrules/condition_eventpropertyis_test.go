@@ -7,7 +7,7 @@
 package pushrules_test
 
 import (
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go/event"
 
 	"testing"
 

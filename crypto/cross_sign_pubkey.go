@@ -10,8 +10,8 @@ import (
 	"context"
 	"fmt"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type CrossSigningPublicKeysCache struct {

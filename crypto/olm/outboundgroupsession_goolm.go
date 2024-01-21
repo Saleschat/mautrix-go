@@ -3,8 +3,8 @@
 package olm
 
 import (
-	"saleschat/go/mautrix/crypto/goolm/session"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/session"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // OutboundGroupSession stores an outbound encrypted messaging session for a

@@ -14,9 +14,9 @@ import (
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/format"
-	"saleschat/go/mautrix/format/mdext"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/format"
+	"github.com/Saleschat/mautrix-go/format/mdext"
 )
 
 func TestRenderMarkdown_PlainText(t *testing.T) {

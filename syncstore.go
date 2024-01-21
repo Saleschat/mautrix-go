@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var _ SyncStore = (*MemorySyncStore)(nil)

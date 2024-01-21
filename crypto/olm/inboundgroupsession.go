@@ -10,7 +10,7 @@ import (
 	"encoding/base64"
 	"unsafe"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // InboundGroupSession stores an inbound encrypted messaging session for a

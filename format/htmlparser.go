@@ -14,7 +14,7 @@ import (
 
 	"golang.org/x/net/html"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type TagStack []string

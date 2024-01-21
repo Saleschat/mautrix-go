@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // TypingEventContent represents the content of a m.typing ephemeral event.

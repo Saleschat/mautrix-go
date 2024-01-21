@@ -15,7 +15,7 @@ import (
 	"hash"
 	"io"
 
-	"saleschat/go/mautrix/crypto/utils"
+	"github.com/Saleschat/mautrix-go/crypto/utils"
 )
 
 var (

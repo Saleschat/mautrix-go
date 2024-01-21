@@ -20,11 +20,11 @@ import (
 	"github.com/rs/zerolog"
 	"go.mau.fi/util/dbutil"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/crypto/sql_store_upgrade"
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/crypto/sql_store_upgrade"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var PostgresArrayWrapper func(any) interface {

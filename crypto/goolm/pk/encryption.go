@@ -3,11 +3,11 @@ package pk
 import (
 	"encoding/base64"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/cipher"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/cipher"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
 )
 
 // Encryption is used to encrypt pk messages

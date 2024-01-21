@@ -11,8 +11,8 @@ import (
 	"errors"
 	"fmt"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/event"
 )
 
 // Machine contains utility methods for interacting with SSSS data on the server.

@@ -21,10 +21,10 @@ import (
 	"go.mau.fi/util/retryafter"
 	"maunium.net/go/maulogger/v2/maulogadapt"
 
-	"saleschat/go/mautrix/crypto/backup"
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
-	"saleschat/go/mautrix/pushrules"
+	"github.com/Saleschat/mautrix-go/crypto/backup"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
+	"github.com/Saleschat/mautrix-go/pushrules"
 )
 
 type CryptoHelper interface {

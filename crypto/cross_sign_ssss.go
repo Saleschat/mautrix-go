@@ -10,10 +10,10 @@ import (
 	"context"
 	"fmt"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/ssss"
-	"saleschat/go/mautrix/crypto/utils"
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/ssss"
+	"github.com/Saleschat/mautrix-go/crypto/utils"
+	"github.com/Saleschat/mautrix-go/event"
 )
 
 // FetchCrossSigningKeysFromSSSS fetches all the cross-signing keys from SSSS, decrypts them using the given key and stores them in the olm machine.

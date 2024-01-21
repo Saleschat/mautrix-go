@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"io"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/cipher"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/crypto/goolm/libolmpickle"
-	"saleschat/go/mautrix/crypto/goolm/message"
-	"saleschat/go/mautrix/crypto/goolm/utilities"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/cipher"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/libolmpickle"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/message"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/utilities"
 )
 
 const (

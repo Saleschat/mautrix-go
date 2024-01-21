@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"saleschat/go/mautrix/crypto/goolm/cipher"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/crypto/goolm/olm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/cipher"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/olm"
 )
 
 var (

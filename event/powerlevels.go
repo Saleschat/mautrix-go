@@ -9,7 +9,7 @@ package event
 import (
 	"sync"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // PowerLevelsEventContent represents the content of a m.room.power_levels state event content.

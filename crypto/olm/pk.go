@@ -14,8 +14,8 @@ import (
 
 	"github.com/tidwall/sjson"
 
-	"saleschat/go/mautrix/crypto/canonicaljson"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // PkSigning stores a key pair for signing messages.

@@ -16,9 +16,9 @@ import (
 
 	"github.com/tidwall/gjson"
 
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
-	"saleschat/go/mautrix/pushrules/glob"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
+	"github.com/Saleschat/mautrix-go/pushrules/glob"
 )
 
 // Room is an interface with the functions that are needed for processing room-specific push conditions

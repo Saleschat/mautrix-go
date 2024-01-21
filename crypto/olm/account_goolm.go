@@ -7,9 +7,9 @@ import (
 
 	"github.com/tidwall/sjson"
 
-	"saleschat/go/mautrix/crypto/canonicaljson"
-	"saleschat/go/mautrix/crypto/goolm/account"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/account"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // Account stores a device account for end to end encrypted messaging.

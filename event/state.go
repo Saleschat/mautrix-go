@@ -7,7 +7,7 @@
 package event
 
 import (
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // CanonicalAliasEventContent represents the content of a m.room.canonical_alias state event.

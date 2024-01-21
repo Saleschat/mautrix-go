@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/crypto/goolm/sas"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/sas"
 )
 
 func initSAS() (*sas.SAS, *sas.SAS, error) {

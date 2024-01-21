@@ -1,4 +1,4 @@
-module saleschat/go/mautrix
+module github.com/Saleschat/mautrix-go
 
 go 1.20
 

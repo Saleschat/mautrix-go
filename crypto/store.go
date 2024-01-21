@@ -12,8 +12,8 @@ import (
 	"sort"
 	"sync"
 
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var ErrGroupSessionWithheld error = &event.RoomKeyWithheldEventContent{}

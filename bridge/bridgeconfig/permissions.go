@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type PermissionConfig map[string]PermissionLevel

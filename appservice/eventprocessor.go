@@ -14,8 +14,8 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/event"
 )
 
 type ExecMode uint8

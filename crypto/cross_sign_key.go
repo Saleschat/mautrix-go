@@ -11,10 +11,10 @@ import (
 	"context"
 	"fmt"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/crypto/signatures"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/crypto/signatures"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // CrossSigningKeysCache holds the three cross-signing keys for the current user.

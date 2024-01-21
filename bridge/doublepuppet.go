@@ -17,9 +17,9 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/appservice"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/appservice"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type doublePuppetUtil struct {

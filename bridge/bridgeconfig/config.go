@@ -20,8 +20,8 @@ import (
 	"go.mau.fi/zeroconfig"
 	"gopkg.in/yaml.v3"
 
-	"saleschat/go/mautrix/appservice"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/appservice"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type HomeserverSoftware string

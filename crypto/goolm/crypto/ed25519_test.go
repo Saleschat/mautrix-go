@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
 )
 
 func TestEd25519(t *testing.T) {

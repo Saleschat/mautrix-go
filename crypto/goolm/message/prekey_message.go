@@ -1,7 +1,7 @@
 package message
 
 import (
-	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
 )
 
 const (

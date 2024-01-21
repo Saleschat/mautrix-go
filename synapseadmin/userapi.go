@@ -13,8 +13,8 @@ import (
 
 	"go.mau.fi/util/jsontime"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // ReqResetPassword is the request content for Client.ResetPassword.

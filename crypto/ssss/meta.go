@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"strings"
 
-	"saleschat/go/mautrix/crypto/utils"
+	"github.com/Saleschat/mautrix-go/crypto/utils"
 )
 
 // KeyMetadata represents server-side metadata about a SSSS key. The metadata can be used to get

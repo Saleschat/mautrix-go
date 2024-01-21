@@ -15,13 +15,13 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/appservice"
-	"saleschat/go/mautrix/bridge/bridgeconfig"
-	"saleschat/go/mautrix/bridge/status"
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/format"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/appservice"
+	"github.com/Saleschat/mautrix-go/bridge/bridgeconfig"
+	"github.com/Saleschat/mautrix-go/bridge/status"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/format"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type CommandProcessor interface {

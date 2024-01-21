@@ -9,7 +9,7 @@ package event
 import (
 	"encoding/json"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // Membership is an enum specifying the membership state of a room member.

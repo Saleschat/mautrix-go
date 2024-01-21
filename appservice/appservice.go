@@ -26,9 +26,9 @@ import (
 	"gopkg.in/yaml.v3"
 	"maunium.net/go/maulogger/v2/maulogadapt"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // EventChannelSize is the size for the Events channel in Appservice instances.

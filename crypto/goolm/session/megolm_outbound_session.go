@@ -6,14 +6,14 @@ import (
 	"errors"
 	"fmt"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 
-	"saleschat/go/mautrix/crypto/goolm"
-	"saleschat/go/mautrix/crypto/goolm/cipher"
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/crypto/goolm/libolmpickle"
-	"saleschat/go/mautrix/crypto/goolm/megolm"
-	"saleschat/go/mautrix/crypto/goolm/utilities"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/cipher"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/libolmpickle"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/megolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/utilities"
 )
 
 const (

@@ -14,8 +14,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
 )
 
 const sampleData = `{

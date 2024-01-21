@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"saleschat/go/mautrix/crypto/pkcs7"
+	"github.com/Saleschat/mautrix-go/crypto/pkcs7"
 )
 
 func TestPKCS7(t *testing.T) {

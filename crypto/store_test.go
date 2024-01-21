@@ -15,8 +15,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/util/dbutil"
 
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 const olmSessID = "sJlikQQKXp7UQjmS9/lyZCNUVJ2AmKyHbufPBaC7tpk"

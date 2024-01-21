@@ -1,4 +1,4 @@
-module saleschat/go/mautrix/example
+module github.com/Saleschat/mautrix-go/example
 
 go 1.20
 
@@ -6,7 +6,7 @@ require (
 	github.com/chzyer/readline v1.5.1
 	github.com/mattn/go-sqlite3 v1.14.19
 	github.com/rs/zerolog v1.31.0
-	saleschat/go/mautrix v0.16.3-0.20240113165612-308e3583b06f
+	github.com/Saleschat/mautrix-go v0.16.3-0.20240113165612-308e3583b06f
 )
 
 require (
@@ -24,4 +24,4 @@ require (
 	maunium.net/go/maulogger/v2 v2.4.1 // indirect
 )
 
-//replace saleschat/go/mautrix => ../
+//replace github.com/Saleschat/mautrix-go => ../

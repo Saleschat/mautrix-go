@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"saleschat/go/mautrix/crypto/backup"
+	"github.com/Saleschat/mautrix-go/crypto/backup"
 )
 
 type testStruct struct {

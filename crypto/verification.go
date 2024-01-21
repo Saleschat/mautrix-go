@@ -18,11 +18,11 @@ import (
 	"sync"
 	"time"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/crypto/canonicaljson"
-	"saleschat/go/mautrix/crypto/olm"
-	"saleschat/go/mautrix/event"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var (

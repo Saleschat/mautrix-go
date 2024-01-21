@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go/event"
 )
 
 var (

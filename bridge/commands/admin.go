@@ -9,7 +9,7 @@ package commands
 import (
 	"strconv"
 
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var CommandDiscardMegolmSession = &FullHandler{

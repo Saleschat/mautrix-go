@@ -15,11 +15,11 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"saleschat/go/mautrix/crypto/ssss"
-	"saleschat/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/ssss"
+	"github.com/Saleschat/mautrix-go/id"
 
-	"saleschat/go/mautrix"
-	"saleschat/go/mautrix/event"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/event"
 )
 
 // OlmMachine is the main struct for handling Matrix end-to-end encryption.

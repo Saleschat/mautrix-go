@@ -12,7 +12,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"saleschat/go/mautrix"
+	"github.com/Saleschat/mautrix-go"
 )
 
 const sampleVersions = `{

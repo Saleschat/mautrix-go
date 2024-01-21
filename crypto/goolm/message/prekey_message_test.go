@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"saleschat/go/mautrix/crypto/goolm/crypto"
-	"saleschat/go/mautrix/crypto/goolm/message"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/message"
 )
 
 func TestPreKeyMessageDecode(t *testing.T) {
