@@ -3,7 +3,7 @@ package mautrix
 import (
 	"errors"
 
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // SyncStore is an interface which must be satisfied to store client data.

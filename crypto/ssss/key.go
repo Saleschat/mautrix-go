@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"strings"
 
-	"maunium.net/go/mautrix/crypto/utils"
+	"github.com/Saleschat/mautrix-go/crypto/utils"
 )
 
 // Key represents a SSSS private key and related metadata.

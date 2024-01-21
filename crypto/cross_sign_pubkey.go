@@ -9,8 +9,8 @@ package crypto
 import (
 	"fmt"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type CrossSigningPublicKeysCache struct {

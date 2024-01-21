@@ -32,13 +32,13 @@ import (
 	"maunium.net/go/maulogger/v2"
 	"maunium.net/go/maulogger/v2/maulogadapt"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/appservice"
-	"maunium.net/go/mautrix/bridge/bridgeconfig"
-	"maunium.net/go/mautrix/bridge/status"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
-	"maunium.net/go/mautrix/sqlstatestore"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/appservice"
+	"github.com/Saleschat/mautrix-go/bridge/bridgeconfig"
+	"github.com/Saleschat/mautrix-go/bridge/status"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
+	"github.com/Saleschat/mautrix-go/sqlstatestore"
 )
 
 var configPath = flag.MakeFull("c", "config", "The path to your config file.", "config.yaml").String()

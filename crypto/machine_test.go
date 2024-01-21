@@ -13,9 +13,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type mockStateStore struct{}

@@ -13,8 +13,8 @@ import (
 
 	"golang.org/x/net/html"
 
-	"maunium.net/go/mautrix/crypto/attachment"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/attachment"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // MessageType is the sub-type of a m.room.message event.
@@ -74,6 +74,13 @@ func (content *ReactionEventContent) SetRelatesTo(rel *RelatesTo) {
 	content.RelatesTo = *rel
 }
 
+type ScWACallEventInfo struct {
+	// type would be call_terminated for now
+	Type    string `json:"type"`
+	Creator string `json:"call_creator"`
+	Id      string `json:"id"`
+}
+
 // MessageEventContent represents the content of a m.room.message event.
 //
 // It is also used to represent m.sticker events, as they are equivalent to m.room.message
@@ -116,6 +123,8 @@ type MessageEventContent struct {
 	BeeperGalleryImages      []*MessageEventContent `json:"com.beeper.gallery.images,omitempty"`
 	BeeperGalleryCaption     string                 `json:"com.beeper.gallery.caption,omitempty"`
 	BeeperGalleryCaptionHTML string                 `json:"com.beeper.gallery.caption_html,omitempty"`
+
+	ScWACallMetadata ScWACallEventInfo `json:"sc.wa.call_metadata,omitempty"`
 }
 
 func (content *MessageEventContent) GetRelatesTo() *RelatesTo {

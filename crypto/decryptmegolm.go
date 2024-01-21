@@ -15,9 +15,9 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var (

@@ -13,8 +13,8 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix/appservice"
-	"maunium.net/go/mautrix/bridge/status"
+	"github.com/Saleschat/mautrix-go/appservice"
+	"github.com/Saleschat/mautrix-go/bridge/status"
 )
 
 func (br *Bridge) SendBridgeState(ctx context.Context, state *status.BridgeState) error {

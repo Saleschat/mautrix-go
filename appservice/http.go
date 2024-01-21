@@ -20,9 +20,9 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // Start starts the HTTP server that listens for calls from the Matrix homeserver.

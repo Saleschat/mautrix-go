@@ -9,8 +9,8 @@ package pushrules_test
 import (
 	"github.com/stretchr/testify/assert"
 
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/pushrules"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/pushrules"
 
 	"testing"
 )

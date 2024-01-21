@@ -259,3 +259,8 @@ var (
 
 	ToDeviceBeeperRoomKeyAck = Type{"com.beeper.room_key.ack", ToDeviceEventType}
 )
+
+// Saleschat whatsapp call event
+var (
+	SCWACall = Type{"sc.wa.call", MessageEventType}
+)

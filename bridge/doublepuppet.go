@@ -16,9 +16,9 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/appservice"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/appservice"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type doublePuppetUtil struct {
