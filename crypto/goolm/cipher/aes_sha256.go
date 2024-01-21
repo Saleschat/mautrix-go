@@ -5,8 +5,8 @@ import (
 	"crypto/aes"
 	"io"
 
-	"maunium.net/go/mautrix/crypto/aescbc"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/aescbc"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
 )
 
 // derivedAESKeys stores the derived keys for the AESSHA256 cipher

@@ -1,8 +1,8 @@
 package mautrix
 
 import (
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 type RoomStateMap = map[event.Type]map[string]*event.Event

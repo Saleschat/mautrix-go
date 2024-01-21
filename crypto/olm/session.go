@@ -21,7 +21,7 @@ import (
 	"encoding/base64"
 	"unsafe"
 
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 )
 
 // Session stores an end to end encrypted messaging session.

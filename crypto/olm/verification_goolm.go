@@ -3,7 +3,7 @@
 package olm
 
 import (
-	"maunium.net/go/mautrix/crypto/goolm/sas"
+	"saleschat/go/mautrix/crypto/goolm/sas"
 )
 
 // SAS stores an Olm Short Authentication String (SAS) object.

@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"maunium.net/go/mautrix/crypto/goolm/cipher"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
-	"maunium.net/go/mautrix/crypto/goolm/olm"
+	"saleschat/go/mautrix/crypto/goolm/cipher"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm/olm"
 )
 
 var (

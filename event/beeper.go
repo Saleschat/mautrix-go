@@ -7,7 +7,7 @@
 package event
 
 import (
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 )
 
 type MessageStatusReason string

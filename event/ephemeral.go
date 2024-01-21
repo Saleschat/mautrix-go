@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 )
 
 // TypingEventContent represents the content of a m.typing ephemeral event.

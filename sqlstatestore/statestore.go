@@ -19,8 +19,8 @@ import (
 	"github.com/rs/zerolog"
 	"go.mau.fi/util/dbutil"
 
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 //go:embed *.sql

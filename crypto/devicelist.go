@@ -13,9 +13,9 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/id"
 )
 
 var (

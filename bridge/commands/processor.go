@@ -14,8 +14,8 @@ import (
 	"github.com/rs/zerolog"
 	"maunium.net/go/maulogger/v2/maulogadapt"
 
-	"maunium.net/go/mautrix/bridge"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/bridge"
+	"saleschat/go/mautrix/id"
 )
 
 type Processor struct {

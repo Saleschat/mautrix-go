@@ -10,9 +10,9 @@ package crypto
 import (
 	"context"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/id"
 )
 
 func (mach *OlmMachine) storeCrossSigningKeys(ctx context.Context, crossSigningKeys map[id.UserID]mautrix.CrossSigningKeys, deviceKeys map[id.UserID]map[id.DeviceID]mautrix.DeviceKeys) {

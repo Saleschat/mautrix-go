@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"time"
 
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/id"
 )
 
 var (

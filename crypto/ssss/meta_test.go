@@ -13,7 +13,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"maunium.net/go/mautrix/crypto/ssss"
+	"saleschat/go/mautrix/crypto/ssss"
 )
 
 const key1Meta = `

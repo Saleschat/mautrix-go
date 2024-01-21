@@ -9,7 +9,7 @@ package pushrules
 import (
 	"encoding/json"
 
-	"maunium.net/go/mautrix/event"
+	"saleschat/go/mautrix/event"
 )
 
 type PushRuleset struct {

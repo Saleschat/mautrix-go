@@ -13,8 +13,8 @@ import (
 	"runtime/debug"
 	"time"
 
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 // EventHandler handles a single event from a sync response.

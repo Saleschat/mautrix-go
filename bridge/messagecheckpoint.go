@@ -8,9 +8,9 @@
 package bridge
 
 import (
-	"maunium.net/go/mautrix/appservice"
-	"maunium.net/go/mautrix/bridge/status"
-	"maunium.net/go/mautrix/event"
+	"saleschat/go/mautrix/appservice"
+	"saleschat/go/mautrix/bridge/status"
+	"saleschat/go/mautrix/event"
 )
 
 func (br *Bridge) SendMessageSuccessCheckpoint(evt *event.Event, step status.MessageCheckpointStep, retryNum int) {

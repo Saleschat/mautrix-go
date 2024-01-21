@@ -8,10 +8,10 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix/crypto/backup"
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/backup"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/id"
 )
 
 func (mach *OlmMachine) DownloadAndStoreLatestKeyBackup(ctx context.Context, megolmBackupKey *backup.MegolmBackupKey) error {

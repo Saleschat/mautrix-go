@@ -14,11 +14,11 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/id"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/event"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/event"
 )
 
 type KeyShareRejection struct {

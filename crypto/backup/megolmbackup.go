@@ -1,8 +1,8 @@
 package backup
 
 import (
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/id"
 )
 
 // MegolmAuthData is the auth_data when the key backup is created with

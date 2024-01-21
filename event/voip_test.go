@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"maunium.net/go/mautrix/event"
+	"saleschat/go/mautrix/event"
 )
 
 const callCandidates = `{

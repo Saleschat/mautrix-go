@@ -3,8 +3,8 @@
 package olm
 
 import (
-	"maunium.net/go/mautrix/crypto/goolm/session"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/goolm/session"
+	"saleschat/go/mautrix/id"
 )
 
 // InboundGroupSession stores an inbound encrypted messaging session for a

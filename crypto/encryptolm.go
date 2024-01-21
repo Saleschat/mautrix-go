@@ -11,10 +11,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 func (mach *OlmMachine) encryptOlmEvent(ctx context.Context, session *OlmSession, recipient *id.Device, evtType event.Type, content event.Content) *event.EncryptedEventContent {

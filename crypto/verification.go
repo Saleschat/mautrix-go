@@ -18,11 +18,11 @@ import (
 	"sync"
 	"time"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/crypto/canonicaljson"
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/crypto/canonicaljson"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 var (

@@ -7,10 +7,10 @@
 package crypto
 
 import (
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/id"
 )
 
 type OlmAccount struct {

@@ -6,10 +6,10 @@ import (
 	"errors"
 	"testing"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
-	"maunium.net/go/mautrix/crypto/goolm/megolm"
-	"maunium.net/go/mautrix/crypto/goolm/session"
+	"saleschat/go/mautrix/crypto/goolm"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm/megolm"
+	"saleschat/go/mautrix/crypto/goolm/session"
 )
 
 func TestOutboundPickleJSON(t *testing.T) {

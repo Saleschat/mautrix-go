@@ -12,7 +12,7 @@ import (
 
 	"golang.org/x/crypto/hkdf"
 
-	"maunium.net/go/mautrix/crypto/aescbc"
+	"saleschat/go/mautrix/crypto/aescbc"
 )
 
 var ErrInvalidMAC = errors.New("invalid MAC")

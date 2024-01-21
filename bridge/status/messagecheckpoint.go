@@ -16,9 +16,9 @@ import (
 
 	"go.mau.fi/util/jsontime"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 type MessageCheckpointStep string

@@ -1,4 +1,4 @@
-module maunium.net/go/mautrix
+module saleschat/go/mautrix
 
 go 1.20
 

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"maunium.net/go/mautrix/crypto/goolm/libolmpickle"
+	"saleschat/go/mautrix/crypto/goolm/libolmpickle"
 )
 
 func TestUnpickleUInt32(t *testing.T) {

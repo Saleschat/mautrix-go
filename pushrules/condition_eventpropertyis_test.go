@@ -7,7 +7,7 @@
 package pushrules_test
 
 import (
-	"maunium.net/go/mautrix/event"
+	"saleschat/go/mautrix/event"
 
 	"testing"
 

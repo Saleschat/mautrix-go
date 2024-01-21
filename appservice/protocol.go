@@ -14,9 +14,9 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 type OTKCountMap = map[id.UserID]map[id.DeviceID]mautrix.OTKCount

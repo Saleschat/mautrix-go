@@ -10,10 +10,10 @@ import (
 	"errors"
 	"time"
 
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/event"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/event"
 
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 )
 
 var (

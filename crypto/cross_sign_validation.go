@@ -10,7 +10,7 @@ package crypto
 import (
 	"context"
 
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 )
 
 func (mach *OlmMachine) ResolveTrust(device *id.Device) id.TrustState {

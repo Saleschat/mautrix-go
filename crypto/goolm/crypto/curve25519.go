@@ -9,9 +9,9 @@ import (
 
 	"golang.org/x/crypto/curve25519"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/libolmpickle"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/goolm"
+	"saleschat/go/mautrix/crypto/goolm/libolmpickle"
+	"saleschat/go/mautrix/id"
 )
 
 const (

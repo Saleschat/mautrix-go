@@ -3,7 +3,7 @@ package libolmpickle
 import (
 	"fmt"
 
-	"maunium.net/go/mautrix/crypto/goolm"
+	"saleschat/go/mautrix/crypto/goolm"
 )
 
 func isZeroByteSlice(bytes []byte) bool {

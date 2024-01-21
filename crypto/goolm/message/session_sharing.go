@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
 )
 
 const (

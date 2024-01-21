@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
 )
 
 func TestCurve25519(t *testing.T) {

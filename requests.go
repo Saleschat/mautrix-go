@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"maunium.net/go/mautrix/crypto/signatures"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
-	"maunium.net/go/mautrix/pushrules"
+	"saleschat/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
+	"saleschat/go/mautrix/pushrules"
 )
 
 type AuthType string

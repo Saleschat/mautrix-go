@@ -1,7 +1,7 @@
 package message
 
 import (
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
 )
 
 const (

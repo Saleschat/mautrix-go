@@ -10,9 +10,9 @@ import (
 	"github.com/tidwall/sjson"
 	"go.mau.fi/util/exgjson"
 
-	"maunium.net/go/mautrix/crypto/canonicaljson"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/canonicaljson"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/id"
 )
 
 var (

@@ -8,14 +8,14 @@ import (
 	"fmt"
 	"io"
 
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/cipher"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
-	"maunium.net/go/mautrix/crypto/goolm/libolmpickle"
-	"maunium.net/go/mautrix/crypto/goolm/session"
-	"maunium.net/go/mautrix/crypto/goolm/utilities"
+	"saleschat/go/mautrix/crypto/goolm"
+	"saleschat/go/mautrix/crypto/goolm/cipher"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm/libolmpickle"
+	"saleschat/go/mautrix/crypto/goolm/session"
+	"saleschat/go/mautrix/crypto/goolm/utilities"
 )
 
 const (

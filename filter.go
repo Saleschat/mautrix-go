@@ -5,8 +5,8 @@ package mautrix
 import (
 	"errors"
 
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 type EventFormat string

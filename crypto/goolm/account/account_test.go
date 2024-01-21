@@ -9,11 +9,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/id"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/account"
-	"maunium.net/go/mautrix/crypto/signatures"
+	"saleschat/go/mautrix/crypto/goolm"
+	"saleschat/go/mautrix/crypto/goolm/account"
+	"saleschat/go/mautrix/crypto/signatures"
 )
 
 func TestAccount(t *testing.T) {

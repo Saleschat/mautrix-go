@@ -9,9 +9,9 @@ package crypto
 import (
 	"fmt"
 
-	"maunium.net/go/mautrix/crypto/olm"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"saleschat/go/mautrix/crypto/olm"
+	"saleschat/go/mautrix/event"
+	"saleschat/go/mautrix/id"
 )
 
 // SASData contains the data that users need to verify.

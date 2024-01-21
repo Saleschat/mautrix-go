@@ -14,7 +14,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"maunium.net/go/mautrix"
+	"saleschat/go/mautrix"
 )
 
 type respGetRegisterNonce struct {

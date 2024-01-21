@@ -3,8 +3,8 @@ package message
 import (
 	"bytes"
 
-	"maunium.net/go/mautrix/crypto/goolm/cipher"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
+	"saleschat/go/mautrix/crypto/goolm/cipher"
+	"saleschat/go/mautrix/crypto/goolm/crypto"
 )
 
 const (
