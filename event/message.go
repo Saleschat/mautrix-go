@@ -77,8 +77,10 @@ func (content *ReactionEventContent) SetRelatesTo(rel *RelatesTo) {
 type ScWACallEventInfo struct {
 	// type would be call_terminated for now
 	Type    string `json:"type"`
-	Creator string `json:"call_creator"`
+	Creator string `json:"creator"`
 	Id      string `json:"id"`
+	// would only be populated for call termination event
+	Reason string `json:"reason"`
 }
 
 // MessageEventContent represents the content of a m.room.message event.
