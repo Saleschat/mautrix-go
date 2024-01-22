@@ -13,8 +13,8 @@ import (
 	"github.com/tidwall/sjson"
 	"go.mau.fi/util/exgjson"
 
-	"maunium.net/go/mautrix/crypto/canonicaljson"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // Utility stores the necessary state to perform hash and signature
