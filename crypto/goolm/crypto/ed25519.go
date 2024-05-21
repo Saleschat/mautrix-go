@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"io"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/libolmpickle"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/libolmpickle"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 const (

@@ -23,9 +23,9 @@ import (
 	"golang.org/x/crypto/hkdf"
 	"golang.org/x/exp/slices"
 
-	"maunium.net/go/mautrix/crypto/canonicaljson"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // StartSAS starts a SAS verification flow. The transaction ID should be the

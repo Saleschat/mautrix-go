@@ -13,8 +13,8 @@ import (
 
 	"golang.org/x/exp/slices"
 
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/event"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // HandleScannedQRData verifies the keys from a scanned QR code and if

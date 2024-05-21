@@ -5,7 +5,7 @@ package olm
 import (
 	"errors"
 
-	"maunium.net/go/mautrix/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
 )
 
 // Error codes from go-olm

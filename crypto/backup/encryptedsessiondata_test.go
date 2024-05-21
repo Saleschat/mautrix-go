@@ -15,8 +15,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"maunium.net/go/mautrix/crypto/backup"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/backup"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 func TestEncryptedSessionData_Decrypt(t *testing.T) {

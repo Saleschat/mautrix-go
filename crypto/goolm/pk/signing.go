@@ -6,10 +6,10 @@ import (
 
 	"github.com/tidwall/sjson"
 
-	"maunium.net/go/mautrix/crypto/canonicaljson"
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/crypto"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/canonicaljson"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/crypto"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // Signing is used for signing a pk

@@ -3,7 +3,7 @@ package message
 import (
 	"encoding/binary"
 
-	"maunium.net/go/mautrix/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
 )
 
 // checkDecodeErr checks if there was an error during decode.

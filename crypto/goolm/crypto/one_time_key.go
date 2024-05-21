@@ -5,9 +5,9 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"maunium.net/go/mautrix/crypto/goolm"
-	"maunium.net/go/mautrix/crypto/goolm/libolmpickle"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/crypto/goolm"
+	"github.com/Saleschat/mautrix-go/crypto/goolm/libolmpickle"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 // OneTimeKey stores the information about a one time key.

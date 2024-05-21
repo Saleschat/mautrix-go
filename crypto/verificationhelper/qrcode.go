@@ -13,7 +13,7 @@ import (
 
 	"go.mau.fi/util/random"
 
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 var (

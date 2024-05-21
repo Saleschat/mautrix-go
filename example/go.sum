@@ -52,10 +52,5 @@ gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 maunium.net/go/maulogger/v2 v2.4.1 h1:N7zSdd0mZkB2m2JtFUsiGTQQAdP0YeFWT7YMc80yAL8=
 maunium.net/go/maulogger/v2 v2.4.1/go.mod h1:omPuYwYBILeVQobz8uO3XC8DIRuEb5rXYlQSuqrbCho=
-<<<<<<< HEAD
 github.com/Saleschat/mautrix-go v0.16.3-0.20240113165612-308e3583b06f h1:6uzyAxrjqGv2SbTAnIK3LI6mo1fILWOga6uNyId+6yM=
 github.com/Saleschat/mautrix-go v0.16.3-0.20240113165612-308e3583b06f/go.mod h1:eRQu5ED1ODsP+xq1K9l1AOD+O9FMkAhodd/RVc3Bkqg=
-=======
-maunium.net/go/mautrix v0.17.1-0.20240208085632-2d1786ced444 h1:PkpCzQotFakHkGKAatiQdb+XjP/HLQM40xuiy2JtHes=
-maunium.net/go/mautrix v0.17.1-0.20240208085632-2d1786ced444/go.mod h1:tMIBWuMXrtjXAqMtaD1VHiT0B3TCxraYlqtncLIyKF0=
->>>>>>> upstream/master

@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"maunium.net/go/mautrix/crypto/verificationhelper"
+	"github.com/Saleschat/mautrix-go/crypto/verificationhelper"
 )
 
 func TestQRCode_Roundtrip(t *testing.T) {

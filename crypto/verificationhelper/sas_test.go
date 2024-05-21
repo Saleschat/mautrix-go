@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"maunium.net/go/mautrix/crypto/verificationhelper"
+	"github.com/Saleschat/mautrix-go/crypto/verificationhelper"
 )
 
 func TestBrokenB64Encode(t *testing.T) {

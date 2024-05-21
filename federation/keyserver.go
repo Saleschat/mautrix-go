@@ -16,8 +16,8 @@ import (
 	"github.com/gorilla/mux"
 	"go.mau.fi/util/jsontime"
 
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/id"
+	"github.com/Saleschat/mautrix-go"
+	"github.com/Saleschat/mautrix-go/id"
 )
 
 type ServerVersion struct {
