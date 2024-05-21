@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Tulir Asokan
+// Copyright (c) 2024 Tulir Asokan
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,14 +9,16 @@ package crypto
 import (
 	"github.com/Saleschat/mautrix-go"
 	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/crypto/signatures"
 	"github.com/Saleschat/mautrix-go/id"
 )
 
 type OlmAccount struct {
-	Internal    olm.Account
-	signingKey  id.SigningKey
-	identityKey id.IdentityKey
-	Shared      bool
+	Internal         olm.Account
+	signingKey       id.SigningKey
+	identityKey      id.IdentityKey
+	Shared           bool
+	KeyBackupVersion id.KeyBackupVersion
 }
 
 func NewOlmAccount() *OlmAccount {
@@ -62,11 +64,7 @@ func (account *OlmAccount) getInitialKeys(userID id.UserID, deviceID id.DeviceID
 		panic(err)
 	}
 
-	deviceKeys.Signatures = mautrix.Signatures{
-		userID: {
-			id.NewKeyID(id.KeyAlgorithmEd25519, deviceID.String()): signature,
-		},
-	}
+	deviceKeys.Signatures = signatures.NewSingleSignature(userID, id.KeyAlgorithmEd25519, deviceID.String(), signature)
 	return deviceKeys
 }
 
@@ -79,14 +77,9 @@ func (account *OlmAccount) getOneTimeKeys(userID id.UserID, deviceID id.DeviceID
 	for keyID, key := range account.Internal.OneTimeKeys() {
 		key := mautrix.OneTimeKey{Key: key}
 		signature, _ := account.Internal.SignJSON(key)
-		key.Signatures = mautrix.Signatures{
-			userID: {
-				id.NewKeyID(id.KeyAlgorithmEd25519, deviceID.String()): signature,
-			},
-		}
+		key.Signatures = signatures.NewSingleSignature(userID, id.KeyAlgorithmEd25519, deviceID.String(), signature)
 		key.IsSigned = true
 		oneTimeKeys[id.NewKeyID(id.KeyAlgorithmSignedCurve25519, keyID)] = key
 	}
-	account.Internal.MarkKeysAsPublished()
 	return oneTimeKeys
 }

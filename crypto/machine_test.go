@@ -20,18 +20,18 @@ import (
 
 type mockStateStore struct{}
 
-func (mockStateStore) IsEncrypted(id.RoomID) bool {
-	return true
+func (mockStateStore) IsEncrypted(context.Context, id.RoomID) (bool, error) {
+	return true, nil
 }
 
-func (mockStateStore) GetEncryptionEvent(id.RoomID) *event.EncryptionEventContent {
+func (mockStateStore) GetEncryptionEvent(context.Context, id.RoomID) (*event.EncryptionEventContent, error) {
 	return &event.EncryptionEventContent{
 		RotationPeriodMessages: 3,
-	}
+	}, nil
 }
 
-func (mockStateStore) FindSharedRooms(id.UserID) []id.RoomID {
-	return []id.RoomID{"room1"}
+func (mockStateStore) FindSharedRooms(context.Context, id.UserID) ([]id.RoomID, error) {
+	return []id.RoomID{"room1"}, nil
 }
 
 func newMachine(t *testing.T, userID id.UserID) *OlmMachine {
@@ -47,7 +47,7 @@ func newMachine(t *testing.T, userID id.UserID) *OlmMachine {
 	}
 
 	machine := NewOlmMachine(client, nil, gobStore, mockStateStore{})
-	if err := machine.Load(); err != nil {
+	if err := machine.Load(context.TODO()); err != nil {
 		t.Fatalf("Error creating account: %v", err)
 	}
 
@@ -56,8 +56,9 @@ func newMachine(t *testing.T, userID id.UserID) *OlmMachine {
 
 func TestRatchetMegolmSession(t *testing.T) {
 	mach := newMachine(t, "user1")
-	outSess := mach.newOutboundGroupSession(context.TODO(), "meow")
-	inSess, err := mach.CryptoStore.GetGroupSession("meow", mach.OwnIdentity().IdentityKey, outSess.ID())
+	outSess, err := mach.newOutboundGroupSession(context.TODO(), "meow")
+	assert.NoError(t, err)
+	inSess, err := mach.CryptoStore.GetGroupSession(context.TODO(), "meow", outSess.ID())
 	require.NoError(t, err)
 	assert.Equal(t, uint32(0), inSess.Internal.FirstKnownIndex())
 	err = inSess.RatchetTo(10)
@@ -77,6 +78,7 @@ func TestOlmMachineOlmMegolmSessions(t *testing.T) {
 		otk = otkTmp
 		break
 	}
+	machineIn.account.Internal.MarkKeysAsPublished()
 
 	// create outbound olm session for sending machine using OTK
 	olmSession, err := machineOut.account.Internal.NewOutboundSession(machineIn.account.IdentityKey(), otk.Key)
@@ -85,7 +87,7 @@ func TestOlmMachineOlmMegolmSessions(t *testing.T) {
 	}
 
 	// store sender device identity in receiving machine store
-	machineIn.CryptoStore.PutDevices("user1", map[id.DeviceID]*id.Device{
+	machineIn.CryptoStore.PutDevices(context.TODO(), "user1", map[id.DeviceID]*id.Device{
 		"device1": {
 			UserID:      "user1",
 			DeviceID:    "device1",
@@ -95,9 +97,10 @@ func TestOlmMachineOlmMegolmSessions(t *testing.T) {
 	})
 
 	// create & store outbound megolm session for sending the event later
-	megolmOutSession := machineOut.newOutboundGroupSession(context.TODO(), "room1")
+	megolmOutSession, err := machineOut.newOutboundGroupSession(context.TODO(), "room1")
+	assert.NoError(t, err)
 	megolmOutSession.Shared = true
-	machineOut.CryptoStore.AddOutboundGroupSession(megolmOutSession)
+	machineOut.CryptoStore.AddOutboundGroupSession(context.TODO(), megolmOutSession)
 
 	// encrypt m.room_key event with olm session
 	deviceIdentity := &id.Device{
@@ -114,18 +117,20 @@ func TestOlmMachineOlmMegolmSessions(t *testing.T) {
 
 	for _, content := range content.OlmCiphertext {
 		// decrypt olm ciphertext
-		decrypted, err := machineIn.decryptAndParseOlmCiphertext(context.TODO(), "user1", senderKey, content.Type, content.Body)
+		decrypted, err := machineIn.decryptAndParseOlmCiphertext(context.TODO(), &event.Event{
+			Type:   event.ToDeviceEncrypted,
+			Sender: "user1",
+		}, senderKey, content.Type, content.Body)
 		if err != nil {
 			t.Errorf("Error decrypting olm content: %v", err)
 		}
 		// store room key in new inbound group session
-		decrypted.Content.ParseRaw(event.ToDeviceRoomKey)
 		roomKeyEvt := decrypted.Content.AsRoomKey()
 		igs, err := NewInboundGroupSession(senderKey, signingKey, "room1", roomKeyEvt.SessionKey, 0, 0, false)
 		if err != nil {
 			t.Errorf("Error creating inbound megolm session: %v", err)
 		}
-		if err = machineIn.CryptoStore.PutGroupSession("room1", senderKey, igs.ID(), igs); err != nil {
+		if err = machineIn.CryptoStore.PutGroupSession(context.TODO(), igs); err != nil {
 			t.Errorf("Error storing inbound megolm session: %v", err)
 		}
 	}

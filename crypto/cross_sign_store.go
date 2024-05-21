@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Nikos Filippakis
-// Copyright (c) 2023 Tulir Asokan
+// Copyright (c) 2024 Tulir Asokan
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,7 +11,7 @@ import (
 	"context"
 
 	"github.com/Saleschat/mautrix-go"
-	"github.com/Saleschat/mautrix-go/crypto/olm"
+	"github.com/Saleschat/mautrix-go/crypto/signatures"
 	"github.com/Saleschat/mautrix-go/id"
 )
 
@@ -19,7 +19,7 @@ func (mach *OlmMachine) storeCrossSigningKeys(ctx context.Context, crossSigningK
 	log := mach.machOrContextLog(ctx)
 	for userID, userKeys := range crossSigningKeys {
 		log := log.With().Str("user_id", userID.String()).Logger()
-		currentKeys, err := mach.CryptoStore.GetCrossSigningKeys(userID)
+		currentKeys, err := mach.CryptoStore.GetCrossSigningKeys(ctx, userID)
 		if err != nil {
 			log.Error().Err(err).
 				Msg("Error fetching current cross-signing keys of user")
@@ -32,7 +32,7 @@ func (mach *OlmMachine) storeCrossSigningKeys(ctx context.Context, crossSigningK
 					if newKeyUsage == curKeyUsage {
 						if _, ok := userKeys.Keys[id.NewKeyID(id.KeyAlgorithmEd25519, curKey.Key.String())]; !ok {
 							// old key is not in the new key map, so we drop signatures made by it
-							if count, err := mach.CryptoStore.DropSignaturesByKey(userID, curKey.Key); err != nil {
+							if count, err := mach.CryptoStore.DropSignaturesByKey(ctx, userID, curKey.Key); err != nil {
 								log.Error().Err(err).Msg("Error deleting old signatures made by user")
 							} else {
 								log.Debug().
@@ -50,7 +50,7 @@ func (mach *OlmMachine) storeCrossSigningKeys(ctx context.Context, crossSigningK
 			log := log.With().Str("key", key.String()).Strs("usages", strishArray(userKeys.Usage)).Logger()
 			for _, usage := range userKeys.Usage {
 				log.Debug().Str("usage", string(usage)).Msg("Storing cross-signing key")
-				if err = mach.CryptoStore.PutCrossSigningKey(userID, usage, key); err != nil {
+				if err = mach.CryptoStore.PutCrossSigningKey(ctx, userID, usage, key); err != nil {
 					log.Error().Err(err).Msg("Error storing cross-signing key")
 				}
 			}
@@ -80,12 +80,12 @@ func (mach *OlmMachine) storeCrossSigningKeys(ctx context.Context, crossSigningK
 					}
 
 					log.Debug().Msg("Verifying cross-signing key signature")
-					if verified, err := olm.VerifySignatureJSON(userKeys, signUserID, signKeyName, signingKey); err != nil {
+					if verified, err := signatures.VerifySignatureJSON(userKeys, signUserID, signKeyName, signingKey); err != nil {
 						log.Warn().Err(err).Msg("Error verifying cross-signing key signature")
 					} else {
 						if verified {
 							log.Debug().Err(err).Msg("Cross-signing key signature verified")
-							err = mach.CryptoStore.PutSignature(userID, key, signUserID, signingKey, signature)
+							err = mach.CryptoStore.PutSignature(ctx, userID, key, signUserID, signingKey, signature)
 							if err != nil {
 								log.Error().Err(err).Msg("Error storing cross-signing key signature")
 							}
@@ -95,6 +95,13 @@ func (mach *OlmMachine) storeCrossSigningKeys(ctx context.Context, crossSigningK
 					}
 				}
 			}
+		}
+
+		// Clear internal cache so that it refreshes from crypto store
+		if userID == mach.Client.UserID && mach.crossSigningPubkeys != nil {
+			log.Debug().Msg("Resetting internal cross-signing key cache")
+			mach.crossSigningPubkeys = nil
+			mach.crossSigningPubkeysFetched = false
 		}
 	}
 }

@@ -20,6 +20,7 @@ import (
 	"github.com/chzyer/readline"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/rs/zerolog"
+	"go.mau.fi/util/exzerolog"
 
 	"github.com/Saleschat/mautrix-go"
 	"github.com/Saleschat/mautrix-go/crypto/cryptohelper"
@@ -57,12 +58,13 @@ func main() {
 	if !*debug {
 		log = log.Level(zerolog.InfoLevel)
 	}
+	exzerolog.SetupDefaults(&log)
 	client.Log = log
 
 	var lastRoomID id.RoomID
 
 	syncer := client.Syncer.(*mautrix.DefaultSyncer)
-	syncer.OnEventType(event.EventMessage, func(source mautrix.EventSource, evt *event.Event) {
+	syncer.OnEventType(event.EventMessage, func(ctx context.Context, evt *event.Event) {
 		lastRoomID = evt.RoomID
 		rl.SetPrompt(fmt.Sprintf("%s> ", lastRoomID))
 		log.Info().
@@ -72,9 +74,9 @@ func main() {
 			Str("body", evt.Content.AsMessage().Body).
 			Msg("Received message")
 	})
-	syncer.OnEventType(event.StateMember, func(source mautrix.EventSource, evt *event.Event) {
+	syncer.OnEventType(event.StateMember, func(ctx context.Context, evt *event.Event) {
 		if evt.GetStateKey() == client.UserID.String() && evt.Content.AsMember().Membership == event.MembershipInvite {
-			_, err := client.JoinRoomByID(evt.RoomID)
+			_, err := client.JoinRoomByID(ctx, evt.RoomID)
 			if err == nil {
 				lastRoomID = evt.RoomID
 				rl.SetPrompt(fmt.Sprintf("%s> ", lastRoomID))
@@ -108,7 +110,7 @@ func main() {
 	}
 	// If you want to use multiple clients with the same DB, you should set a distinct database account ID for each one.
 	//cryptoHelper.DBAccountID = ""
-	err = cryptoHelper.Init()
+	err = cryptoHelper.Init(context.TODO())
 	if err != nil {
 		panic(err)
 	}
@@ -137,7 +139,7 @@ func main() {
 			log.Error().Msg("Wait for an incoming message before sending messages")
 			continue
 		}
-		resp, err := client.SendText(lastRoomID, line)
+		resp, err := client.SendText(context.TODO(), lastRoomID, line)
 		if err != nil {
 			log.Error().Err(err).Msg("Failed to send event")
 		} else {

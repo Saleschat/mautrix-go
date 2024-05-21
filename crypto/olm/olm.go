@@ -1,14 +1,10 @@
+//go:build !goolm
+
 package olm
 
 // #cgo LDFLAGS: -lolm -lstdc++
 // #include <olm/olm.h>
 import "C"
-import (
-	"github.com/Saleschat/mautrix-go/id"
-)
-
-// Signatures is the data structure used to sign JSON objects.
-type Signatures map[id.UserID]map[id.DeviceKeyID]string
 
 // Version returns the version number of the olm library.
 func Version() (major, minor, patch uint8) {

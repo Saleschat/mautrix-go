@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Nikos Filippakis
-// Copyright (c) 2023 Tulir Asokan
+// Copyright (c) 2024 Tulir Asokan
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -48,7 +48,7 @@ func (mach *OlmMachine) RequestRoomKey(ctx context.Context, toUser id.UserID, to
 	keyResponseReceived := make(chan struct{})
 	mach.roomKeyRequestFilled.Store(sessionID, keyResponseReceived)
 
-	err := mach.SendRoomKeyRequest(roomID, senderKey, sessionID, requestID, map[id.UserID][]id.DeviceID{toUser: {toDevice}})
+	err := mach.SendRoomKeyRequest(ctx, roomID, senderKey, sessionID, requestID, map[id.UserID][]id.DeviceID{toUser: {toDevice}})
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (mach *OlmMachine) RequestRoomKey(ctx context.Context, toUser id.UserID, to
 			},
 		}
 
-		mach.Client.SendToDevice(event.ToDeviceRoomKeyRequest, toDeviceCancel)
+		mach.Client.SendToDevice(ctx, event.ToDeviceRoomKeyRequest, toDeviceCancel)
 	}()
 	return resChan, nil
 }
@@ -99,7 +99,7 @@ func (mach *OlmMachine) RequestRoomKey(ctx context.Context, toUser id.UserID, to
 // to the specific key request, but currently it only supports a single target device and is therefore deprecated.
 // A future function may properly support multiple targets and automatically canceling the other requests when receiving
 // the first response.
-func (mach *OlmMachine) SendRoomKeyRequest(roomID id.RoomID, senderKey id.SenderKey, sessionID id.SessionID, requestID string, users map[id.UserID][]id.DeviceID) error {
+func (mach *OlmMachine) SendRoomKeyRequest(ctx context.Context, roomID id.RoomID, senderKey id.SenderKey, sessionID id.SessionID, requestID string, users map[id.UserID][]id.DeviceID) error {
 	if len(requestID) == 0 {
 		requestID = mach.Client.TxnID()
 	}
@@ -126,7 +126,7 @@ func (mach *OlmMachine) SendRoomKeyRequest(roomID id.RoomID, senderKey id.Sender
 			toDeviceReq.Messages[user][device] = requestEvent
 		}
 	}
-	_, err := mach.Client.SendToDevice(event.ToDeviceRoomKeyRequest, toDeviceReq)
+	_, err := mach.Client.SendToDevice(ctx, event.ToDeviceRoomKeyRequest, toDeviceReq)
 	return err
 }
 
@@ -152,7 +152,10 @@ func (mach *OlmMachine) importForwardedRoomKey(ctx context.Context, evt *Decrypt
 			Msg("Mismatched session ID while creating inbound group session from forward")
 		return false
 	}
-	config := mach.StateStore.GetEncryptionEvent(content.RoomID)
+	config, err := mach.StateStore.GetEncryptionEvent(ctx, content.RoomID)
+	if err != nil {
+		log.Error().Err(err).Msg("Failed to get encryption event for room")
+	}
 	var maxAge time.Duration
 	var maxMessages int
 	if config != nil {
@@ -164,6 +167,9 @@ func (mach *OlmMachine) importForwardedRoomKey(ctx context.Context, evt *Decrypt
 	}
 	if content.MaxMessages != 0 {
 		maxMessages = content.MaxMessages
+	}
+	if firstKnownIndex := igsInternal.FirstKnownIndex(); firstKnownIndex > 0 {
+		log.Warn().Uint32("first_known_index", firstKnownIndex).Msg("Importing partial session")
 	}
 	igs := &InboundGroupSession{
 		Internal:         *igsInternal,
@@ -178,17 +184,22 @@ func (mach *OlmMachine) importForwardedRoomKey(ctx context.Context, evt *Decrypt
 		MaxMessages: maxMessages,
 		IsScheduled: content.IsScheduled,
 	}
-	err = mach.CryptoStore.PutGroupSession(content.RoomID, content.SenderKey, content.SessionID, igs)
+	existingIGS, _ := mach.CryptoStore.GetGroupSession(ctx, igs.RoomID, igs.ID())
+	if existingIGS != nil && existingIGS.Internal.FirstKnownIndex() <= igs.Internal.FirstKnownIndex() {
+		// We already have an equivalent or better session in the store, so don't override it.
+		return false
+	}
+	err = mach.CryptoStore.PutGroupSession(ctx, igs)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to store new inbound group session")
 		return false
 	}
-	mach.markSessionReceived(content.SessionID)
+	mach.markSessionReceived(ctx, content.SessionID)
 	log.Debug().Msg("Received forwarded inbound group session")
 	return true
 }
 
-func (mach *OlmMachine) rejectKeyRequest(rejection KeyShareRejection, device *id.Device, request event.RequestedKeyInfo) {
+func (mach *OlmMachine) rejectKeyRequest(ctx context.Context, rejection KeyShareRejection, device *id.Device, request event.RequestedKeyInfo) {
 	if rejection.Code == "" {
 		// If the rejection code is empty, it means don't share keys, but also don't tell the requester.
 		return
@@ -201,7 +212,7 @@ func (mach *OlmMachine) rejectKeyRequest(rejection KeyShareRejection, device *id
 		Code:      rejection.Code,
 		Reason:    rejection.Reason,
 	}
-	err := mach.sendToOneDevice(device.UserID, device.DeviceID, event.ToDeviceRoomKeyWithheld, &content)
+	err := mach.sendToOneDevice(ctx, device.UserID, device.DeviceID, event.ToDeviceRoomKeyWithheld, &content)
 	if err != nil {
 		mach.Log.Warn().Err(err).
 			Str("code", string(rejection.Code)).
@@ -209,7 +220,7 @@ func (mach *OlmMachine) rejectKeyRequest(rejection KeyShareRejection, device *id
 			Str("device_id", device.DeviceID.String()).
 			Msg("Failed to send key share rejection")
 	}
-	err = mach.sendToOneDevice(device.UserID, device.DeviceID, event.ToDeviceOrgMatrixRoomKeyWithheld, &content)
+	err = mach.sendToOneDevice(ctx, device.UserID, device.DeviceID, event.ToDeviceOrgMatrixRoomKeyWithheld, &content)
 	if err != nil {
 		mach.Log.Warn().Err(err).
 			Str("code", string(rejection.Code)).
@@ -219,11 +230,34 @@ func (mach *OlmMachine) rejectKeyRequest(rejection KeyShareRejection, device *id
 	}
 }
 
-func (mach *OlmMachine) defaultAllowKeyShare(ctx context.Context, device *id.Device, _ event.RequestedKeyInfo) *KeyShareRejection {
+// sendToOneDevice sends a to-device event to a single device.
+func (mach *OlmMachine) sendToOneDevice(ctx context.Context, userID id.UserID, deviceID id.DeviceID, eventType event.Type, content interface{}) error {
+	_, err := mach.Client.SendToDevice(ctx, eventType, &mautrix.ReqSendToDevice{
+		Messages: map[id.UserID]map[id.DeviceID]*event.Content{
+			userID: {
+				deviceID: {
+					Parsed: content,
+				},
+			},
+		},
+	})
+
+	return err
+}
+
+func (mach *OlmMachine) defaultAllowKeyShare(ctx context.Context, device *id.Device, evt event.RequestedKeyInfo) *KeyShareRejection {
 	log := mach.machOrContextLog(ctx)
 	if mach.Client.UserID != device.UserID {
-		log.Debug().Msg("Rejecting key request from a different user")
-		return &KeyShareRejectOtherUser
+		isShared, err := mach.CryptoStore.IsOutboundGroupSessionShared(ctx, device.UserID, device.IdentityKey, evt.SessionID)
+		if err != nil {
+			log.Err(err).Msg("Rejecting key request due to internal error when checking session sharing")
+			return &KeyShareRejectNoResponse
+		} else if !isShared {
+			log.Debug().Msg("Rejecting key request for unshared session")
+			return &KeyShareRejectOtherUser
+		}
+		log.Debug().Msg("Accepting key request for shared session")
+		return nil
 	} else if mach.Client.DeviceID == device.DeviceID {
 		log.Debug().Msg("Ignoring key request from ourselves")
 		return &KeyShareRejectNoResponse
@@ -245,7 +279,7 @@ func (mach *OlmMachine) defaultAllowKeyShare(ctx context.Context, device *id.Dev
 	}
 }
 
-func (mach *OlmMachine) handleRoomKeyRequest(ctx context.Context, sender id.UserID, content *event.RoomKeyRequestEventContent) {
+func (mach *OlmMachine) HandleRoomKeyRequest(ctx context.Context, sender id.UserID, content *event.RoomKeyRequestEventContent) {
 	log := zerolog.Ctx(ctx).With().
 		Str("request_id", content.RequestID).
 		Str("device_id", content.RequestingDeviceID.String()).
@@ -270,23 +304,23 @@ func (mach *OlmMachine) handleRoomKeyRequest(ctx context.Context, sender id.User
 
 	rejection := mach.AllowKeyShare(ctx, device, content.Body)
 	if rejection != nil {
-		mach.rejectKeyRequest(*rejection, device, content.Body)
+		mach.rejectKeyRequest(ctx, *rejection, device, content.Body)
 		return
 	}
 
-	igs, err := mach.CryptoStore.GetGroupSession(content.Body.RoomID, content.Body.SenderKey, content.Body.SessionID)
+	igs, err := mach.CryptoStore.GetGroupSession(ctx, content.Body.RoomID, content.Body.SessionID)
 	if err != nil {
 		if errors.Is(err, ErrGroupSessionWithheld) {
 			log.Debug().Err(err).Msg("Requested group session not available")
-			mach.rejectKeyRequest(KeyShareRejectUnavailable, device, content.Body)
+			mach.rejectKeyRequest(ctx, KeyShareRejectUnavailable, device, content.Body)
 		} else {
 			log.Error().Err(err).Msg("Failed to get group session to forward")
-			mach.rejectKeyRequest(KeyShareRejectInternalError, device, content.Body)
+			mach.rejectKeyRequest(ctx, KeyShareRejectInternalError, device, content.Body)
 		}
 		return
 	} else if igs == nil {
 		log.Error().Msg("Didn't find group session to forward")
-		mach.rejectKeyRequest(KeyShareRejectUnavailable, device, content.Body)
+		mach.rejectKeyRequest(ctx, KeyShareRejectUnavailable, device, content.Body)
 		return
 	}
 	if internalID := igs.ID(); internalID != content.Body.SessionID {
@@ -299,7 +333,7 @@ func (mach *OlmMachine) handleRoomKeyRequest(ctx context.Context, sender id.User
 	exportedKey, err := igs.Internal.Export(firstKnownIndex)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to export group session to forward")
-		mach.rejectKeyRequest(KeyShareRejectInternalError, device, content.Body)
+		mach.rejectKeyRequest(ctx, KeyShareRejectInternalError, device, content.Body)
 		return
 	}
 
@@ -324,14 +358,14 @@ func (mach *OlmMachine) handleRoomKeyRequest(ctx context.Context, sender id.User
 	}
 }
 
-func (mach *OlmMachine) handleBeeperRoomKeyAck(ctx context.Context, sender id.UserID, content *event.BeeperRoomKeyAckEventContent) {
+func (mach *OlmMachine) HandleBeeperRoomKeyAck(ctx context.Context, sender id.UserID, content *event.BeeperRoomKeyAckEventContent) {
 	log := mach.machOrContextLog(ctx).With().
 		Str("room_id", content.RoomID.String()).
 		Str("session_id", content.SessionID.String()).
 		Int("first_message_index", content.FirstMessageIndex).
 		Logger()
 
-	sess, err := mach.CryptoStore.GetGroupSession(content.RoomID, "", content.SessionID)
+	sess, err := mach.CryptoStore.GetGroupSession(ctx, content.RoomID, content.SessionID)
 	if err != nil {
 		if errors.Is(err, ErrGroupSessionWithheld) {
 			log.Debug().Err(err).Msg("Acked group session was already redacted")
@@ -351,7 +385,7 @@ func (mach *OlmMachine) handleBeeperRoomKeyAck(ctx context.Context, sender id.Us
 	isInbound := sess.SenderKey == mach.OwnIdentity().IdentityKey
 	if isInbound && mach.DeleteOutboundKeysOnAck && content.FirstMessageIndex == 0 {
 		log.Debug().Msg("Redacting inbound copy of outbound group session after ack")
-		err = mach.CryptoStore.RedactGroupSession(content.RoomID, sess.SenderKey, content.SessionID, "outbound session acked")
+		err = mach.CryptoStore.RedactGroupSession(ctx, content.RoomID, content.SessionID, "outbound session acked")
 		if err != nil {
 			log.Err(err).Msg("Failed to redact group session")
 		}

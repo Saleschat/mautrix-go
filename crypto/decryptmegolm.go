@@ -1,4 +1,4 @@
-// Copyright (c) 2023 Tulir Asokan
+// Copyright (c) 2024 Tulir Asokan
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -72,7 +72,11 @@ func (mach *OlmMachine) DecryptMegolmEvent(ctx context.Context, evt *event.Event
 	if sess.SigningKey == ownSigningKey && sess.SenderKey == ownIdentityKey && len(sess.ForwardingChains) == 0 {
 		trustLevel = id.TrustStateVerified
 	} else {
-		device, err = mach.GetOrFetchDeviceByKey(ctx, evt.Sender, sess.SenderKey)
+		if mach.DisableDecryptKeyFetching {
+			device, err = mach.CryptoStore.FindDeviceByKey(ctx, evt.Sender, sess.SenderKey)
+		} else {
+			device, err = mach.GetOrFetchDeviceByKey(ctx, evt.Sender, sess.SenderKey)
+		}
 		if err != nil {
 			// We don't want to throw these errors as the message can still be decrypted.
 			log.Debug().Err(err).Msg("Failed to get device to verify session")
@@ -91,7 +95,7 @@ func (mach *OlmMachine) DecryptMegolmEvent(ctx context.Context, evt *event.Event
 		} else {
 			forwardedKeys = true
 			lastChainItem := sess.ForwardingChains[len(sess.ForwardingChains)-1]
-			device, _ = mach.CryptoStore.FindDeviceByKey(evt.Sender, id.IdentityKey(lastChainItem))
+			device, _ = mach.CryptoStore.FindDeviceByKey(ctx, evt.Sender, id.IdentityKey(lastChainItem))
 			if device != nil {
 				trustLevel = mach.ResolveTrust(device)
 			} else {
@@ -188,7 +192,7 @@ func (mach *OlmMachine) actuallyDecryptMegolmEvent(ctx context.Context, evt *eve
 	mach.megolmDecryptLock.Lock()
 	defer mach.megolmDecryptLock.Unlock()
 
-	sess, err := mach.CryptoStore.GetGroupSession(encryptionRoomID, content.SenderKey, content.SessionID)
+	sess, err := mach.CryptoStore.GetGroupSession(ctx, encryptionRoomID, content.SessionID)
 	if err != nil {
 		return nil, nil, 0, fmt.Errorf("failed to get group session: %w", err)
 	} else if sess == nil {
@@ -207,6 +211,11 @@ func (mach *OlmMachine) actuallyDecryptMegolmEvent(ctx context.Context, evt *eve
 		return sess, nil, messageIndex, fmt.Errorf("failed to check if message index is duplicate: %w", err)
 	} else if !ok {
 		return sess, nil, messageIndex, fmt.Errorf("%w %d", DuplicateMessageIndex, messageIndex)
+	}
+
+	// Normal clients don't care about tracking the ratchet state, so let them bypass the rest of the function
+	if mach.DisableRatchetTracking {
+		return sess, plaintext, messageIndex, nil
 	}
 
 	expectedMessageIndex := sess.RatchetSafety.NextIndex
@@ -250,7 +259,7 @@ func (mach *OlmMachine) actuallyDecryptMegolmEvent(ctx context.Context, evt *eve
 		Int("max_messages", sess.MaxMessages).
 		Logger()
 	if sess.MaxMessages > 0 && int(ratchetTargetIndex) >= sess.MaxMessages && len(sess.RatchetSafety.MissedIndices) == 0 && mach.DeleteFullyUsedKeysOnDecrypt {
-		err = mach.CryptoStore.RedactGroupSession(sess.RoomID, sess.SenderKey, sess.ID(), "maximum messages reached")
+		err = mach.CryptoStore.RedactGroupSession(ctx, sess.RoomID, sess.ID(), "maximum messages reached")
 		if err != nil {
 			log.Err(err).Msg("Failed to delete fully used session")
 			return sess, plaintext, messageIndex, RatchetError
@@ -261,14 +270,14 @@ func (mach *OlmMachine) actuallyDecryptMegolmEvent(ctx context.Context, evt *eve
 		if err = sess.RatchetTo(ratchetTargetIndex); err != nil {
 			log.Err(err).Msg("Failed to ratchet session")
 			return sess, plaintext, messageIndex, RatchetError
-		} else if err = mach.CryptoStore.PutGroupSession(sess.RoomID, sess.SenderKey, sess.ID(), sess); err != nil {
+		} else if err = mach.CryptoStore.PutGroupSession(ctx, sess); err != nil {
 			log.Err(err).Msg("Failed to store ratcheted session")
 			return sess, plaintext, messageIndex, RatchetError
 		} else {
 			log.Info().Msg("Ratcheted session forward")
 		}
 	} else if didModify {
-		if err = mach.CryptoStore.PutGroupSession(sess.RoomID, sess.SenderKey, sess.ID(), sess); err != nil {
+		if err = mach.CryptoStore.PutGroupSession(ctx, sess); err != nil {
 			log.Err(err).Msg("Failed to store updated ratchet safety data")
 			return sess, plaintext, messageIndex, RatchetError
 		} else {

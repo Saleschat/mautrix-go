@@ -1,4 +1,4 @@
-// Copyright (c) 2023 Tulir Asokan
+// Copyright (c) 2024 Tulir Asokan
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -57,7 +57,7 @@ func (mach *OlmMachine) decryptOlmEvent(ctx context.Context, evt *event.Event) (
 	if !ok {
 		return nil, NotEncryptedForMe
 	}
-	decrypted, err := mach.decryptAndParseOlmCiphertext(ctx, evt.Sender, content.SenderKey, ownContent.Type, ownContent.Body)
+	decrypted, err := mach.decryptAndParseOlmCiphertext(ctx, evt, content.SenderKey, ownContent.Type, ownContent.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -69,13 +69,13 @@ type OlmEventKeys struct {
 	Ed25519 id.Ed25519 `json:"ed25519"`
 }
 
-func (mach *OlmMachine) decryptAndParseOlmCiphertext(ctx context.Context, sender id.UserID, senderKey id.SenderKey, olmType id.OlmMsgType, ciphertext string) (*DecryptedOlmEvent, error) {
+func (mach *OlmMachine) decryptAndParseOlmCiphertext(ctx context.Context, evt *event.Event, senderKey id.SenderKey, olmType id.OlmMsgType, ciphertext string) (*DecryptedOlmEvent, error) {
 	if olmType != id.OlmMsgTypePreKey && olmType != id.OlmMsgTypeMsg {
 		return nil, UnsupportedOlmMessageType
 	}
 
 	endTimeTrace := mach.timeTrace(ctx, "decrypting olm ciphertext", 5*time.Second)
-	plaintext, err := mach.tryDecryptOlmCiphertext(ctx, sender, senderKey, olmType, ciphertext)
+	plaintext, err := mach.tryDecryptOlmCiphertext(ctx, evt.Sender, senderKey, olmType, ciphertext)
 	endTimeTrace()
 	if err != nil {
 		return nil, err
@@ -88,7 +88,8 @@ func (mach *OlmMachine) decryptAndParseOlmCiphertext(ctx context.Context, sender
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse olm payload: %w", err)
 	}
-	if sender != olmEvt.Sender {
+	olmEvt.Type.Class = evt.Type.Class
+	if evt.Sender != olmEvt.Sender {
 		return nil, SenderMismatch
 	} else if mach.Client.UserID != olmEvt.Recipient {
 		return nil, RecipientMismatch
@@ -159,7 +160,7 @@ func (mach *OlmMachine) tryDecryptOlmCiphertext(ctx context.Context, sender id.U
 	}
 
 	endTimeTrace = mach.timeTrace(ctx, "updating new session in database", time.Second)
-	err = mach.CryptoStore.UpdateSession(senderKey, session)
+	err = mach.CryptoStore.UpdateSession(ctx, senderKey, session)
 	endTimeTrace()
 	if err != nil {
 		log.Warn().Err(err).Msg("Failed to update new olm session in crypto store after decrypting")
@@ -170,7 +171,7 @@ func (mach *OlmMachine) tryDecryptOlmCiphertext(ctx context.Context, sender id.U
 func (mach *OlmMachine) tryDecryptOlmCiphertextWithExistingSession(ctx context.Context, senderKey id.SenderKey, olmType id.OlmMsgType, ciphertext string) ([]byte, error) {
 	log := *zerolog.Ctx(ctx)
 	endTimeTrace := mach.timeTrace(ctx, "getting sessions with sender key", time.Second)
-	sessions, err := mach.CryptoStore.GetSessions(senderKey)
+	sessions, err := mach.CryptoStore.GetSessions(ctx, senderKey)
 	endTimeTrace()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get session for %s: %w", senderKey, err)
@@ -199,7 +200,7 @@ func (mach *OlmMachine) tryDecryptOlmCiphertextWithExistingSession(ctx context.C
 			}
 		} else {
 			endTimeTrace = mach.timeTrace(ctx, "updating session in database", time.Second)
-			err = mach.CryptoStore.UpdateSession(senderKey, session)
+			err = mach.CryptoStore.UpdateSession(ctx, senderKey, session)
 			endTimeTrace()
 			if err != nil {
 				log.Warn().Err(err).Msg("Failed to update olm session in crypto store after decrypting")
@@ -216,8 +217,8 @@ func (mach *OlmMachine) createInboundSession(ctx context.Context, senderKey id.S
 	if err != nil {
 		return nil, err
 	}
-	mach.saveAccount()
-	err = mach.CryptoStore.AddSession(senderKey, session)
+	mach.saveAccount(ctx)
+	err = mach.CryptoStore.AddSession(ctx, senderKey, session)
 	if err != nil {
 		zerolog.Ctx(ctx).Error().Err(err).Msg("Failed to store created inbound session")
 	}
@@ -228,7 +229,7 @@ const MinUnwedgeInterval = 1 * time.Hour
 
 func (mach *OlmMachine) unwedgeDevice(log zerolog.Logger, sender id.UserID, senderKey id.SenderKey) {
 	log = log.With().Str("action", "unwedge olm session").Logger()
-	ctx := log.WithContext(context.Background())
+	ctx := log.WithContext(context.TODO())
 	mach.recentlyUnwedgedLock.Lock()
 	prevUnwedge, ok := mach.recentlyUnwedged[senderKey]
 	delta := time.Now().Sub(prevUnwedge)
